@@ -18,10 +18,19 @@ export class HeroComponent {
   }
 
   changeHero(): void {
-    this.name = 'spiderman';
+    this.name = 'Spiderman';
   }
 
   changeAge(): void {
     this.age = 25;
+  }
+
+  resetForm(): void {
+    this.name = 'ironman';
+    this.age = 45;
+    //document.querySelector('h1')!.innerHTML = 'Desde Angular';
+    /* document.querySelectorAll('h1').forEach((h1) => {
+      h1.innerHTML = 'Desde Angular';
+    }); */
   }
 }
