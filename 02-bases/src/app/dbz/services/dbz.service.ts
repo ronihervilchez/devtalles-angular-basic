@@ -10,7 +10,7 @@ export class DbzService {
     { id: uuid(), name: 'Vegeta', power: 7500 },
   ];
 
-  onNewCharacter(character: Character): void {
+  addCharacter(character: Character): void {
     // console.log(character);
     const newCharacter: Character = {
       id: uuid(),
@@ -24,6 +24,8 @@ export class DbzService {
   } */
 
   deleteCharacterById(id: string): void {
-    this.characters = this.characters.filter((character) => character.id !== id);
+    this.characters = this.characters.filter(
+      (character) => character.id !== id
+    );
   }
 }
