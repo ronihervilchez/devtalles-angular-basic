@@ -11,4 +11,9 @@ export class MainPageComponent {
     { name: 'Krillin', power: 1000 },
     { name: 'Vegeta', power: 7500 },
   ];
+
+  onNewCharacter(character: Character): void {
+    console.log('main page')
+    console.log(character);
+  }
 }
