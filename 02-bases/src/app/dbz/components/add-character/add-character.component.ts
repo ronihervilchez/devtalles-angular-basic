@@ -16,9 +16,10 @@ export class AddCharacterComponent {
   };
 
   emitCharacter(): void {
-    console.log(this.character);
+    // debugger; // This will pause the execution of the code
+    // console.log(this.character);
     if (this.character.name.length === 0) return;
-    this.onNewCharacter.emit(this.character);
+    this.onNewCharacter.emit({ ...this.character });
     this.character.name = '';
     this.character.power = 0;
   }
