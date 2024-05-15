@@ -19,7 +19,6 @@ export class LazyImageComponent implements OnInit {
   }
 
   onLoad(): void {
-    console.log('Image loaded');
     this.hasLoaded = true;
   }
 }
