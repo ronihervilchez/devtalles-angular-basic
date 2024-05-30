@@ -5,6 +5,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MenubarModule } from 'primeng/menubar';
 import { NgModule } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
+
 @NgModule({
   declarations: [],
   exports: [
