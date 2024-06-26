@@ -86,6 +86,7 @@ export class NewPageComponent implements OnInit {
         this.router.navigate(['/heroes']);
       });
 
+    //TODO refactor this code to use the pipe operator
     /* dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;
       this.heroService
