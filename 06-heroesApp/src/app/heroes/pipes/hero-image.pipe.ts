@@ -2,7 +2,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
 import { Hero } from '../interfaces/hero.interface';
 
 @Pipe({
-  name: 'HeroImage',
+  name: 'heroImage',
 })
 export class HeroImagePipe implements PipeTransform {
   transform(hero: Hero): unknown {
