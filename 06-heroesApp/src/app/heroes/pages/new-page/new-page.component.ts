@@ -15,10 +15,18 @@ export class NewPageComponent {
     alter_ego: new FormControl(),
     first_appearance: new FormControl(''),
     characters: new FormControl(''),
+    alt_img: new FormControl(''),
   });
 
   public publishers = [
     { id: 'DC Comics', desc: 'DC - Comics' },
     { id: 'Marvel Comics', desc: 'Marvel - Comics' },
   ];
+
+  onSubmit(): void {
+    console.log({
+      formIsValid: this.heroForm.valid,
+      value: this.heroForm.value,
+    });
+  }
 }
