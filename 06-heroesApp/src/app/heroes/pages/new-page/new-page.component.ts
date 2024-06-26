@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroesService } from '../../services/heroes.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-page',
   templateUrl: './new-page.component.html',
   styles: ``,
 })
-export class NewPageComponent {
+export class NewPageComponent implements OnInit {
   public heroForm = new FormGroup({
     id: new FormControl(''),
     superhero: new FormControl('', { nonNullable: true }),
@@ -24,7 +28,23 @@ export class NewPageComponent {
     { id: 'Marvel Comics', desc: 'Marvel - Comics' },
   ];
 
-  constructor(private heroService: HeroesService) {}
+  constructor(
+    private heroService: HeroesService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {}
+
+  ngOnInit(): void {
+    if (!this.router.url.includes('edit')) return;
+    this.activatedRoute.params
+      .pipe(switchMap(({ id }) => this.heroService.getHeroById(id)))
+      .subscribe((hero) => {
+        if (!hero) return this.router.navigate(['/']);
+        this.heroForm.reset(hero);
+        return;
+      });
+  }
 
   get currentHero(): Hero {
     const hero = this.heroForm.value as Hero;
@@ -35,12 +55,19 @@ export class NewPageComponent {
     if (this.heroForm.invalid) return;
     if (this.currentHero.id) {
       this.heroService.updateHero(this.currentHero).subscribe((hero) => {
-        console.log('Hero updated', hero);
+        this.showSnackbar(`${hero.superhero} updated`);
       });
       return;
     }
     this.heroService.addHero(this.currentHero).subscribe((hero) => {
-      console.log('Hero created', hero);
+      this.showSnackbar(`${hero.superhero} created`);
+      this.router.navigate(['/heroes/edit', hero.id]);
+    });
+  }
+
+  showSnackbar(message: string): void {
+    this.snackbar.open(message, 'done', {
+      duration: 2500,
     });
   }
 }
