@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroesService } from '../../services/heroes.service';
-import { switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -73,11 +73,29 @@ export class NewPageComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.heroForm.value,
     });
-    dialogRef.afterClosed().subscribe((result) => {
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((result: boolean) => result),
+        switchMap(() => this.heroService.deleteHero(this.currentHero.id)),
+        filter((wasDeleted: boolean) => wasDeleted)
+      )
+      .subscribe(() => {
+        this.showSnackbar('Hero deleted');
+        this.router.navigate(['/heroes']);
+      });
+
+    /* dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;
-      this.heroService.deleteHero(this.currentHero.id);
-      this.router.navigate(['/heroes']);
-    });
+      this.heroService
+        .deleteHero(this.currentHero.id)
+        .subscribe((wasDeleted) => {
+          if (!wasDeleted) return this.showSnackbar('Error deleting hero');
+          this.showSnackbar('Hero deleted');
+          this.router.navigate(['/heroes']);
+        });
+    }); */
   }
 
   showSnackbar(message: string): void {
