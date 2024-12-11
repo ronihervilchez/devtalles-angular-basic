@@ -31,6 +31,12 @@ export class BasicPageComponent implements OnInit {
     // this.myForm.reset(rtx5090);
   }
 
+  isValidField(field: string) {
+    return (
+      this.myForm.controls[field].errors && this.myForm.controls[field].touched
+    );
+  }
+
   getFieldError(field: string): string | null {
     if (!this.myForm.controls[field]) return null;
     const errors = this.myForm.controls[field].errors || {};
@@ -43,12 +49,6 @@ export class BasicPageComponent implements OnInit {
       }
     }
     return null;
-  }
-
-  isValidField(field: string) {
-    return (
-      this.myForm.controls[field].errors && this.myForm.controls[field].touched
-    );
   }
 
   onSave(): void {
