@@ -7,35 +7,45 @@ import { ValidatorsService } from '../../../shared/services/validators.service';
   templateUrl: './register-page.component.html',
 })
 export class RegisterPageComponent {
-  public myForm: FormGroup = this.fb.group({
-    name: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validtorService.firstNameAndLastnamePattern),
+  public myForm: FormGroup = this.fb.group(
+    {
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.firstNameAndLastnamePattern),
+        ],
       ],
-    ],
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validtorService.emailPattern),
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorService.emailPattern),
+        ],
+        [this.emailValidator],
       ],
-      [this.EmailValidator],
-    ],
-    username: ['', [Validators.required, this.validtorService.cantBeStrider]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    password2: ['', [Validators.required]],
-  });
+      username: [
+        '',
+        [Validators.required, this.validatorService.cantBeStrider],
+      ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required]],
+    },
+    {
+      validators: [
+        this.validatorService.isFieldOneEqualFieldTwo('password', 'password2'),
+      ],
+    }
+  );
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly validtorService: ValidatorsService,
-    private readonly EmailValidator: EmailValidator
+    private readonly validatorService: ValidatorsService,
+    private readonly emailValidator: EmailValidator
   ) {}
 
   isValidField(field: string) {
-    return this.validtorService.isValidField(this.myForm, field);
+    return this.validatorService.isValidField(this.myForm, field);
   }
 
   onSubmit() {
