@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as ccustomValidators from '../../../shared/validators/validators';
+import { EmailValidator } from '../../../shared/services/email-validator.servive';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -11,21 +12,30 @@ export class RegisterPageComponent {
       '',
       [
         Validators.required,
-        Validators.pattern(ccustomValidators.firstNameAndLastnamePattern),
+        Validators.pattern(this.validtorService.firstNameAndLastnamePattern),
       ],
     ],
     email: [
       '',
-      [Validators.required, Validators.pattern(ccustomValidators.emailPattern)],
+      [
+        Validators.required,
+        Validators.pattern(this.validtorService.emailPattern),
+      ],
+      [this.EmailValidator],
     ],
-    username: ['', [Validators.required, ccustomValidators.cantBeStrider]],
+    username: ['', [Validators.required, this.validtorService.cantBeStrider]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
   });
-  constructor(private readonly fb: FormBuilder) {}
 
-  isValidField(field: string): void {
-    //TODO obtener desde un servicio
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly validtorService: ValidatorsService,
+    private readonly EmailValidator: EmailValidator
+  ) {}
+
+  isValidField(field: string) {
+    return this.validtorService.isValidField(this.myForm, field);
   }
 
   onSubmit() {
