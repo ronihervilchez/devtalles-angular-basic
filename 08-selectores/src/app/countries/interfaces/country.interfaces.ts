@@ -1,40 +1,46 @@
 export enum Region {
-  Africa    =  "Africa",
-  Americas  =  "Americas",
-  Asia      =  "Asia",
-  Europe    =  "Europe",
-  Oceania   =  "Oceania",
+  Africa = 'Africa',
+  Americas = 'Americas',
+  Asia = 'Asia',
+  Europe = 'Europe',
+  Oceania = 'Oceania',
+}
+
+export interface SmallCountry {
+  name: string;
+  cca3: string;
+  borders: string[];
 }
 
 export interface Country {
-  name:         Name;
-  cca3:         string;
-  status:       Status;
-  idd:          Idd;
-  capital:      string[];
+  name: Name;
+  cca3: string;
+  status: Status;
+  idd: Idd;
+  capital: string[];
   altSpellings: string[];
-  region:       string;
-  subregion:    string;
-  languages:    { [key: string]: string };
+  region: string;
+  subregion: string;
+  languages: { [key: string]: string };
   translations: { [key: string]: Translation };
-  latlng:       number[];
-  landlocked:   boolean;
-  borders?:     string[];
-  area:         number;
-  demonyms:     Demonyms;
-  flag:         string;
-  maps:         Maps;
-  population:   number;
-  gini?:        { [key: string]: number };
-  fifa?:        string;
-  car:          Car;
-  timezones:    string[];
-  continents:   string[];
-  flags:        Flags;
-  coatOfArms:   CoatOfArms;
-  startOfWeek:  StartOfWeek;
-  capitalInfo:  CapitalInfo;
-  postalCode?:  PostalCode;
+  latlng: number[];
+  landlocked: boolean;
+  borders?: string[];
+  area: number;
+  demonyms: Demonyms;
+  flag: string;
+  maps: Maps;
+  population: number;
+  gini?: { [key: string]: number };
+  fifa?: string;
+  car: Car;
+  timezones: string[];
+  continents: string[];
+  flags: Flags;
+  coatOfArms: CoatOfArms;
+  startOfWeek: StartOfWeek;
+  capitalInfo: CapitalInfo;
+  postalCode?: PostalCode;
 }
 
 export interface CapitalInfo {
@@ -43,12 +49,12 @@ export interface CapitalInfo {
 
 export interface Car {
   signs: string[];
-  side:  Side;
+  side: Side;
 }
 
 export enum Side {
-  Left = "left",
-  Right = "right",
+  Left = 'left',
+  Right = 'right',
 }
 
 export interface CoatOfArms {
@@ -57,12 +63,12 @@ export interface CoatOfArms {
 }
 
 export interface Currency {
-  name:   string;
+  name: string;
   symbol: string;
 }
 
 export interface Demonyms {
-  eng:  Eng;
+  eng: Eng;
   fra?: Eng;
 }
 
@@ -72,42 +78,42 @@ export interface Eng {
 }
 
 export interface Flags {
-  png:  string;
-  svg:  string;
+  png: string;
+  svg: string;
   alt?: string;
 }
 
 export interface Idd {
-  root:     string;
+  root: string;
   suffixes: string[];
 }
 
 export interface Maps {
-  googleMaps:     string;
+  googleMaps: string;
   openStreetMaps: string;
 }
 
 export interface Name {
-  common:     string;
-  official:   string;
+  common: string;
+  official: string;
   nativeName: { [key: string]: Translation };
 }
 
 export interface Translation {
   official: string;
-  common:   string;
+  common: string;
 }
 
 export interface PostalCode {
   format: string;
-  regex:  string;
+  regex: string;
 }
 
 export enum StartOfWeek {
-  Monday = "monday",
+  Monday = 'monday',
 }
 
 export enum Status {
-  OfficiallyAssigned = "officially-assigned",
-  UserAssigned = "user-assigned",
+  OfficiallyAssigned = 'officially-assigned',
+  UserAssigned = 'user-assigned',
 }
