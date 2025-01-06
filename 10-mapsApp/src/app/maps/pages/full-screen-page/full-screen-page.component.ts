@@ -1,6 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
-import maplibregl from 'maplibre-gl';
+import { Map } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 @Component({
@@ -10,9 +10,13 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 export class FullScreenPageComponent implements AfterViewInit {
   constructor() {}
 
+  @ViewChild('map') divMap?: ElementRef;
+
   ngAfterViewInit(): void {
-    const map = new maplibregl.Map({
-      container: 'map', // container id
+    if (!this.divMap) throw new Error('El elemento HTML no fue encontrado');
+
+    const map = new Map({
+      container: this.divMap.nativeElement, // container id
       style: 'https://demotiles.maplibre.org/style.json', // style URL
       center: [0, 0], // starting position [lng, lat]
       zoom: 1, // starting zoom
