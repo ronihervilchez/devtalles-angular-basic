@@ -1,0 +1,17 @@
+#map {
+  width: 100vw; /* Ancho de la ventana */
+  height: 100vh; /* Alto de la ventana */
+}
+
+.list-group {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+button {
+  position: fixed;
+  top: 30px;
+  left: 20px;
+}
