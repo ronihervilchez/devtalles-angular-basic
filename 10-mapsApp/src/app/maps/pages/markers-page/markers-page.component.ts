@@ -25,5 +25,32 @@ export class MarkersPageComponent {
     });
 
     const market = new Marker().setLngLat(this.currentLngLat).addTo(this.map);
+
+    /* const markerHtml = document.createElement('div');
+    markerHtml.innerHTML = 'Hola Mundo';
+    const marker = new Marker({
+      color: 'red',
+      element: markerHtml,
+    })
+      .setLngLat(this.currentLngLat)
+      .addTo(this.map); */
+  }
+
+  createMarker(): void {
+    if (!this.map) return;
+    const color = '#XXXXXX'.replace(/X/g, () => (Math.random() * 16 | 0).toString(16));
+    const lngLat = this.map.getCenter();
+    this.addMarker(lngLat);
+  }
+
+  addMarker(lngLat: LngLat, color: string = 'red'): void {
+    if (!this.map) return;
+
+    const marker = new Marker({
+      color,
+      draggable: true,
+    })
+      .setLngLat(lngLat)
+      .addTo(this.map);
   }
 }
