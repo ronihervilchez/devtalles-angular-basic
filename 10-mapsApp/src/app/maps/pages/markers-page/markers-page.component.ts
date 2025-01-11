@@ -36,7 +36,6 @@ export class MarkersPageComponent {
     });
 
     //const market = new Marker().setLngLat(this.currentLngLat).addTo(this.map);
-
     /* const markerHtml = document.createElement('div');
     markerHtml.innerHTML = 'Hola Mundo';
     const marker = new Marker({
@@ -69,6 +68,9 @@ export class MarkersPageComponent {
       .addTo(this.map);
     this.markers.push({ marker, color });
     this.saveToLocalStorage();
+    marker.on('dragend', () => {
+      this.saveToLocalStorage();
+    });
   }
 
   deleteMarker(index: number): void {
