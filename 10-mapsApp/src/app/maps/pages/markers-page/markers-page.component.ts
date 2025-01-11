@@ -38,12 +38,14 @@ export class MarkersPageComponent {
 
   createMarker(): void {
     if (!this.map) return;
-    const color = '#XXXXXX'.replace(/X/g, () => (Math.random() * 16 | 0).toString(16));
+    const color = '#XXXXXX'.replace(/X/g, () =>
+      ((Math.random() * 16) | 0).toString(16)
+    );
     const lngLat = this.map.getCenter();
-    this.addMarker(lngLat);
+    this.addMarker(lngLat, color);
   }
 
-  addMarker(lngLat: LngLat, color: string = 'red'): void {
+  addMarker(lngLat: LngLat, color: string): void {
     if (!this.map) return;
 
     const marker = new Marker({

@@ -12,6 +12,6 @@
 
 button {
   position: fixed;
-  top: 30px;
-  left: 20px;
+  bottom: 30px;
+  right: 20px;
 }
