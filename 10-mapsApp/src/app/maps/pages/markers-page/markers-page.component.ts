@@ -1,6 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LngLat, Map, Marker } from 'maplibre-gl';
 
+interface MarkerAndColor {
+  marker: Marker;
+  color: string;
+}
+
 @Component({
   templateUrl: './markers-page.component.html',
   styleUrl: './markers-page.component.css',
@@ -9,6 +14,7 @@ export class MarkersPageComponent {
   @ViewChild('map') divMap?: ElementRef;
 
   public map?: Map;
+  public markers: MarkerAndColor[] = [];
   public currentLngLat: LngLat = new LngLat(
     -65.65475865528936,
     7.653722858034143
@@ -24,7 +30,7 @@ export class MarkersPageComponent {
       zoom: 13, // starting zoom
     });
 
-    const market = new Marker().setLngLat(this.currentLngLat).addTo(this.map);
+    //const market = new Marker().setLngLat(this.currentLngLat).addTo(this.map);
 
     /* const markerHtml = document.createElement('div');
     markerHtml.innerHTML = 'Hola Mundo';
@@ -54,5 +60,11 @@ export class MarkersPageComponent {
     })
       .setLngLat(lngLat)
       .addTo(this.map);
+    this.markers.push({ marker, color });
+  }
+
+  deleteMarker(index: number): void {
+    this.markers[index].marker.remove();
+    this.markers.splice(index, 1);
   }
 }
